@@ -35,7 +35,7 @@ async def check_muted_users():
                         muted_users[member.id] = now
                     else:
                         elapsed = now - muted_users[member.id]
-                        if elapsed >= timedelta(minutes=5):
+                        if elapsed >= timedelta(minutes=10):
                             target_channel = guild.get_channel(1475490692880138472)
                             if target_channel:
                                 try:
@@ -55,3 +55,4 @@ async def on_ready():
 
 # Токен берём из переменной окружения
 bot.run(os.environ["DISCORD_TOKEN"])
+
