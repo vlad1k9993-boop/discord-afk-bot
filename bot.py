@@ -54,4 +54,5 @@ async def on_ready():
     check_muted_users.start()
 
 # Токен берём из переменной окружения
-bot.run("MTQ3NTQ4OTQzODI2NzIxMTkwOQ.G3oz60.Mo_XzhBimmokJezbmPCx1fb8grT2zxgty83D2U")
+
+bot.run("MTQ3NTQ4OTQzODI2NzIxMTkwOQ.Gsk4NA.YzAjk0tm1ZKdVklz8csrU47ZWmzzl170W1z0is")
