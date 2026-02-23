@@ -29,22 +29,24 @@ async def check_muted_users():
             for member in vc.members:
                 if member.voice is None:
                     continue
-                # Если пользователь замьютил себя
-                if member.voice.self_mute:
+                
+                # Переносим только если **полностью без звука** (микрофон и звук выключены)
+                if member.voice.self_mute and member.voice.self_deaf:
                     if member.id not in muted_users:
                         muted_users[member.id] = now
                     else:
                         elapsed = now - muted_users[member.id]
-                        if elapsed >= timedelta(minutes=10):
+                        if elapsed >= timedelta(minutes=10):  # можно изменить на 10 минут
                             target_channel = guild.get_channel(1475490692880138472)
                             if target_channel:
                                 try:
                                     await member.move_to(target_channel)
-                                    print(f"Moved {member.name} due to 5+ min mute")
+                                    print(f"Moved {member.name} due to 10+ min full mute")
                                     del muted_users[member.id]
                                 except Exception as e:
                                     print(f"Error moving {member.name}: {e}")
                 else:
+                    # Пользователь размьючен или звук включен — убираем из словаря
                     if member.id in muted_users:
                         del muted_users[member.id]
 
@@ -55,4 +57,3 @@ async def on_ready():
 
 # Токен берём из переменной окружения
 bot.run(os.environ["DISCORD_TOKEN"])
-
